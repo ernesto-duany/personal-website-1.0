@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Ernesto Duany's Web Development Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #080951;
+      --primary-dark: #171369;
+      --text-primary: #1f2937;
+      --text-secondary: #6b7280;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --border-color: #e5e7eb;
+      --shadow-light: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+      --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      --shadow-large: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      --gradient-bg: linear-gradient(135deg, #1731a3 0%, #543176 100%);
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background: var(--gradient-bg);
+      min-height: 100vh;
+    }
+
+    /* Modern Navigation Bar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--glass-border);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 0 2rem;
+    }
+
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: var(--shadow-medium);
+      padding: 0 2rem;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+    .nav-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .nav-logo:hover {
+      color: var(--primary-dark);
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-link {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-link:hover {
+      color: var(--primary-color);
+      background: rgba(52, 55, 241, 0.1);
+    }
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--primary-color);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-link:hover::before {
+      width: 80%;
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      transition: background 0.3s ease;
+    }
+
+    .mobile-menu-toggle:hover {
+      background: rgba(99, 102, 241, 0.1);
+    }
+
+    .hamburger {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: var(--text-primary);
+      margin: 5px 0;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+
+    .mobile-menu-toggle.active .hamburger:nth-child(1) {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .mobile-menu-toggle.active .hamburger:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-toggle.active .hamburger:nth-child(3) {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 8rem 2rem 4rem;
+      text-align: center;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff, #e0e7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .profile-section {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin: 3rem 0;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: var(--shadow-large);
+    }
+
+    .profile-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .profile-text {
+      text-align: left;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    /* Main Content */
+    .main-content {
+      background: var(--bg-primary);
+      border-radius: 2rem 2rem 0 0;
+      margin-top: -2rem;
+      position: relative;
+      z-index: 10;
+      padding: 4rem 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section {
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: var(--text-primary);
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: var(--primary-color);
+      border-radius: 2px;
+    }
+
+    /* Projects Section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .project-card {
+      background: var(--bg-primary);
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: var(--shadow-light);
+      transition: all 0.3s ease;
+      border: 1px solid var(--border-color);
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-large);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover .project-image {
+      transform: scale(1.05);
+    }
+
+    .project-content {
+      padding: 1.5rem;
+    }
+
+    .project-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .project-description {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .project-button {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .project-button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    /* Skills Section */
+    .skills-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .skill-category {
+      background: var(--bg-secondary);
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      border: 1px solid var(--border-color);
+    }
+
+    .skill-level {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    .skill-list {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    /* Resume & Contact Sections */
+    .resume, .contact {
+      background: var(--bg-secondary);
+      padding: 3rem;
+      border-radius: 1rem;
+      text-align: center;
+      border: 1px solid var(--border-color);
+    }
+
+    .resume p, .contact p {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .resume a, .contact a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .resume a:hover, .contact a:hover {
+      color: var(--primary-dark);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--text-primary);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .mobile-menu-toggle {
+        display: block;
+      }
+
+              .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-primary);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        padding: 1rem 2rem;
+        gap: 0;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .nav-menu.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .nav-item {
+        width: 100%;
+        text-align: center;
+        padding: 0.5rem 0;
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .profile-section {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .profile-text {
+        text-align: center;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 0 1rem;
+      }
+
+      .hero {
+        padding: 6rem 1rem 4rem;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .main-content {
+        padding: 2rem 1rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Modern Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">ED</a>
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item"><a href="/index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="#home" class="nav-link">Top of the page</a></li>
+        <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+        <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
+        <li class="nav-item"><a href="#resume" class="nav-link">Resume</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <button class="mobile-menu-toggle" id="mobile-toggle">
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Ernesto Duany</h1>
+      <p class="hero-subtitle">Fronted Web Developer</p>
+      
+      <div class="profile-section">
+        <img class="profile-image" src="/dist/img/pfp.jpeg" alt="Ernesto Duany's profile picture">
+        <div class="profile-text">
+          <p>Hi there, I’m a 23-year-old aspiring programmer with a strong focus on web development and software engineering. I have a solid understanding of HTML and CSS, and I’m currently building expertise in JavaScript and React. I enjoy exploring how these technologies integrate to create practical, user-friendly solutions. I’m passionate about developing clean, functional projects and committed to continuously improving my skills through hands-on practice and real-world application.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="container">
+      <!-- Projects Section -->
+      <section id="projects" class="section">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-grid">
+          <div class="project-card">
+            <img class="project-image" src="/dist/img/shopping.png" alt="Shopping cart website screenshot">
+            <div class="project-content">
+              <h3 class="project-title">Shopping Cart Website</h3>
+              <p class="project-description">Developed a fully functional e-commerce shopping cart application using vanilla JavaScript with features including dynamic product display, real-time cart management, quantity controls, and a payment system with change calculation.</p>
+              <a href="/shopping cart/src/shopping cart website.html" class="project-button">View Project</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <img class="project-image" src="/dist/img/portfolio.png" alt="Portfolio website screenshot">
+            <div class="project-content">
+              <h3 class="project-title">Personal Portfolio using DOM</h3>
+              <p class="project-description">Built a responsive personal portfolio website featuring dynamic project showcase with interactive navigation, real-time form validation, and asynchronous data loading from JSON files.</p>
+              <a href="/DOM website/DOM website.html" class="project-button">View Project</a>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <img class="project-image" src="/dist/img/restaurant website.png" alt="Restaurant website screenshot">
+            <div class="project-content">
+              <h3 class="project-title">Simple Restaurant Website</h3>
+              <p class="project-description">This project serves as a good foundation for a complete restaurant website which will implement DOM functionality and a shopping cart so customers can self check out.</p>
+              <a href="http://dash.ga.co/kanashi/build-your-own-business-website" class="project-button" target="_blank">View Project</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills Section -->
+      <section id="skills" class="section">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-container">
+          <div class="skill-category">
+            <div class="skill-level">Proficient</div>
+            <div class="skill-list">CSS, HTML5</div>
+          </div>
+          <div class="skill-category">
+            <div class="skill-level">Moderate</div>
+            <div class="skill-list">JavaScript</div>
+          </div>
+          <div class="skill-category">
+            <div class="skill-level">Learning</div>
+            <div class="skill-list"> React</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Resume Section -->
+      <section id="resume" class="section">
+        <div class="resume">
+          <h2 class="section-title">Resume</h2>
+          <p>Download my resume <a href="/dist/misc files/Resume Sep 7th.pdf" target="_blank">here</a>.</p>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="section">
+        <div class="contact">
+          <h2 class="section-title">Contact Me</h2>
+          <p>If you want to contact me, you can send me an email at <a href="mailto:alejandrodc1732@gmail.com">alejandrodc1732@gmail.com</a></p>
+          <p>or connect with me on <a href="https://www.linkedin.com/in/ernesto-duanyyy" target="_blank">LinkedIn</a>.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Ernesto Duany. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile menu toggle
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    mobileToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      mobileToggle.classList.toggle('active');
+    });
+
+    // Smooth scroll for in-page links only
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }
+
+        // Close mobile menu after click
+        navMenu.classList.remove('active');
+        mobileToggle.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+
+</html>

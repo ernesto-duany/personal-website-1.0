@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Ernesto Duany's Web Development Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      background-image: url("/dist/img/background.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .navbar {
+      margin-right: -10px;
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 100px;
+      z-index: 999;
+      background-color: #2666a2;
+      transition: all 0.3s ease-in-out;
+    }
+    .navbar ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 20px;
+      background-color: #2666a2;
+    }
+    @media (max-width: 600px) {
+      .navbar ul {
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+      }
+    }
+    .navbar ul li {
+      margin: 0 10px;
+    }
+    .navbar ul li a {
+      display: flex;
+      align-items: center;
+      color: #fff;
+      text-decoration: none;
+      font-size: 17px;
+      padding: 7px 8px;
+      border-right: 2px solid rgb(244, 244, 245);
+    }
+    .navbar ul li a:hover {
+      background-color: rgb(13.775, 36.975, 58.725);
+      color: white;
+    }
+    .navbar ul li:last-child a {
+      border-right: none;
+    }
+    .navbar.shrink {
+      height: 70px;
+      background-color: rgb(28.31, 75.99, 120.69);
+    }
+
+    .bio {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    .bio h1 {
+      text-align: center;
+      margin-top: 100px;
+    }
+    .bio p {
+      -webkit-backdrop-filter: saturate(10%) blur(50px);
+              backdrop-filter: saturate(10%) blur(50px);
+      padding: 15px;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .intro_banner {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    .intro_banner--pfp {
+      height: 100px;
+      border-radius: 50%;
+      background-size: cover;
+    }
+    .intro_banner--title {
+      color: #fff;
+      font-size: 40px;
+      text-align: center;
+    }
+    .intro_banner .intro_bio {
+      margin-left: 10px;
+      margin-right: 10px;
+      color: #fff;
+      font-size: 16px;
+    }
+    .intro_banner--style {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    @media (max-width: 600px) {
+      .intro_banner--style {
+        flex-direction: column;
+      }
+    }
+
+    .latest-projects {
+      margin-left: 10px;
+      margin-right: 10px;
+      color: #fff;
+    }
+    .latest-projects h2 {
+      font-size: 28px;
+      margin-top: 100px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+    .latest-projects h3 {
+      font-size: 20px;
+    }
+    .latest-projects p {
+      margin-left: 15px;
+      font-size: 16px;
+    }
+    .latest-projects--img1, .latest-projects--img2, .latest-projects--img3 {
+      width: auto;
+      height: 100px;
+      border-radius: 50%;
+      margin: 20px;
+      background-size: cover;
+      background-position: center;
+    }
+    .latest-projects--box1, .latest-projects--box2, .latest-projects--box3 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      -webkit-backdrop-filter: blur(50px);
+              backdrop-filter: blur(50px);
+      border-radius: 10px;
+    }
+    @media (max-width: 600px) {
+      .latest-projects--box1, .latest-projects--box2, .latest-projects--box3 {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    .latest-projects--button {
+      display: flex;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: rgb(24, 36, 53);
+      color: #fff;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 15px;
+      margin-top: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .latest-projects--button:hover {
+      background-color: rgb(13.775, 36.975, 58.725);
+      color: white;
+    }
+    .latest-projects--button a {
+      color: #fff;
+      text-decoration: none;
+    }
+    .latest-projects--card1:hover, .latest-projects--card2:hover, .latest-projects--card3:hover {
+      padding: 1px;
+      box-shadow: 0 4px 8px rgba(51, 22, 215, 0.2);
+      transition: all 0.3s ease;
+      border-radius: 10px;
+      background-color: black;
+      color: white;
+      margin-bottom: 20px;
+      padding: 10px;
+    }
+
+    .skills,
+    .resume,
+    .contact {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      margin: 10px;
+      border-radius: 10px;
+      color: #fff;
+      text-align: center;
+    }
+    .skills a,
+    .resume a,
+    .contact a {
+      color: rgb(41, 41, 131);
+      text-decoration: none;
+    }
+    .skills a:hover,
+    .resume a:hover,
+    .contact a:hover {
+      text-decoration: underline;
+      color: white;
+    }
+    .skills h2,
+    .resume h2,
+    .contact h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .skills p,
+    .resume p,
+    .contact p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .footer {
+      margin-top: 100px;
+      text-align: center;
+      color: rgb(23, 21, 21);
+      padding: 20px;
+    } /* Added missing closing brace */
+  </style>
+</head>
+
+<body class="body">
+  <nav class="navbar">
+    <ul>
+      <li><a href="/index.html">Home Page</a></li>
+      <li><a href="#latest-projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#resume">Resume</a></li>
+      <li><a href="#contact">Contact</a></li> <!-- Fixed missing closing tag -->
+    </ul>
+  </nav>
+  
+  <header>
+    
+    <section id="bio" class="bio">
+      <div class="intro_banner">
+        <h1 class="intro_banner--title">Ernesto Duany's Web Development Portfolio</h1>
+        <div class="intro_banner--style">
+          <img class="intro_banner--pfp" src="/dist/img/pfp.jpeg" alt="Ernesto Duany's profile picture photo">
+          <p class="intro_bio">Hi there, I’m a 23-year-old aspiring programmer with a strong focus on web development and software engineering. I have a solid understanding of HTML and CSS, and I’m currently building expertise in JavaScript and React. I enjoy exploring how these technologies integrate to create practical, user-friendly solutions. I’m passionate about developing clean, functional projects and committed to continuously improving my skills through hands-on practice and real-world application.</p>
+        </div>
+        <div>
+        <p>Prefer a much more modern look? <a href="/dist/Main website v2.html">Click here</a></p>
+      </div>
+      </div>
+      
+    </section>
+  </header>
+  
+  <main id="main">
+    <section id="latest-projects" class="latest-projects">
+      <div class="latest-projects--title">
+        <h2>Projects</h2>
+      </div>
+
+      <div class="latest-projects--card1">
+        <h3>Shopping Cart Website:</h3>
+        <div class="latest-projects--box1">
+          <img class="latest-projects--img1" src="/dist/img/shopping.png" alt="shopping cart image">
+          <p>Developed a fully functional e-commerce shopping cart application using vanilla JavaScript with features including dynamic
+             product display, real-time cart management, quantity controls, and a payment system with change calculation. Implemented clean separation of concerns with 
+             modular code architecture, event delegation for dynamic DOM manipulation, and comprehensive cart operations including add/remove items,
+              quantity updates, and checkout functionality.</p>
+        </div>
+        <button class="latest-projects--button"><a href="/shopping cart/src/shopping cart website.html">View Project</a> </button>
+      </div>
+
+      <div class="latest-projects--card2">
+        <h3>Personal Portfolio using DOM:</h3>
+        <div class="latest-projects--box2">
+          <img class="latest-projects--img2" src="/dist/img/portfolio.png" alt="portfolio logo image">
+          <p>Built a responsive personal portfolio website featuring dynamic project showcase with interactive navigation, real-time form validation with character
+             counting and error handling, and asynchronous data loading from JSON files. Implemented comprehensive client-side 
+             validation using regex patterns, DOM manipulation for interactive UI elements, and modern JavaScript practices including event 
+             delegation, error handling, and smooth scrolling functionality across desktop and mobile viewports.</p>
+        </div>  
+        <button class="latest-projects--button"> <a href="/DOM website/DOM website.html">View Project</a></button>
+      </div>
+
+      <div class="latest-projects--card3">
+        <h3>Simple Restaurant Website:</h3>
+        <div class="latest-projects--box3">
+          <img class="latest-projects--img3" src="/dist/img/restaurant website.png" alt="restaurant logo image">
+          <p>This project is one of the smaller ones but it serves as a good foundation for a much more complete restaurant website which will implement the DOM functionality and a shopping cart so that customers can self check out.</p>
+        </div>
+        <button class="latest-projects--button"><a href="http://dash.ga.co/kanashi/build-your-own-business-website" target="_blank">View Project</a></button>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="skills">  
+        <h2>Skills</h2>
+        <p><strong>Proficiency</strong>: CSS, HTML5</p>
+        <p><strong>Moderate</strong>: JavaScript</p>
+      </div>
+    </section>
+
+    <section id="resume" class="resume">
+      <h2>Resume</h2>
+      <p>Download my resume <a href="/dist/misc files/Resume Sep 7th.pdf" target="_blank">here</a>.</p>
+    </section> <!-- Added proper closing tag -->
+
+    <section id="contact" class="contact">
+      <h2>Contact Me</h2>
+      <p>If you want to contact me, you can do so by sending me an email at <a href="mailto:alejandrodc1732@gmail.com">alejandrodc1732@gmail.com</a></p>
+      <p>or by connecting with me on <a href="https://www.linkedin.com/in/ernesto-duanyyy" target="_blank">LinkedIn</a>.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Ernesto Duany</p>
+    <p>All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+  const navbar = document.querySelector(".navbar");
+
+  window.addEventListener("scroll", function () {
+    if (window.scrollY > 10) {
+      navbar.classList.add("shrink");
+    } else {
+      navbar.classList.remove("shrink");
+    }
+  });
+});
+  </script>
+</body>
+
+</html>
