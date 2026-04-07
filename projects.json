@@ -1,0 +1,43 @@
+[
+  {
+    "id": "opsight",
+    "title": "OpSight",
+    "description": "A modern web application built to deliver operational clarity and actionable insights. Designed with a focus on clean architecture and real-time data visualization.",
+    "image": "/img/OpSight.png",
+    "imageStyle": "cover",
+    "link": "/dist/opsight.html",
+    "tags": ["AI Solutions", "Business development", "People development", "other"],
+    "featured": true
+  },
+  {
+    "id": "peercode",
+    "title": "PeerCode()",
+    "description": "A collaborative platform for CS students to post questions, receive peer feedback, and interact with an AI agent that provides contextual hints — making learning to code interactive and social.",
+    "image": "/PeerCode()/peer.png",
+    "imageStyle": "contain",
+    "link": "/PeerCode()/PeerCode.html",
+    "tags": ["AI Mentoring", "Student Development", "Collaboration"],
+    "featured": true
+  },
+  {
+    "id": "portfolio-dom",
+    "title": "Portfolio via DOM",
+    "description": "A responsive portfolio showcasing dynamic project display, real-time form validation with regex, async JSON data loading, and clean event-driven architecture across desktop and mobile.",
+    "image": "/img/portfolio.png",
+    "imageStyle": "cover",
+    "link": "/DOM website/DOM website.html",
+    "tags": ["JavaScript", "DOM", "Responsive"],
+    "featured": false
+  },
+  {
+    "id": "restaurant",
+    "title": "Restaurant Website",
+    "description": "A clean, foundational restaurant site designed to grow — the architecture is built to integrate a full DOM-powered ordering system and self-checkout shopping cart in a future iteration.",
+    "image": "/img/restaurant website.png",
+    "imageStyle": "cover",
+    "link": "http://dash.ga.co/kanashi/build-your-own-business-website",
+    "tags": ["HTML", "CSS", "Foundation"],
+    "featured": false,
+    "external": true
+  }
+]
