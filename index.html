@@ -1,127 +1,702 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <title>Alejandro Duany's Web Development Portfolio</title>
-  <link rel="stylesheet" href="/main.css">
+  <meta charset="UTF-8">
+  <title>Ernesto Duany — Web Developer & Engineer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ernesto Duany — Front-End Developer and builder of OpSight.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --red:        #C41C1C;
+      --red-hover:  #A81818;
+      --red-dim:    rgba(196,28,28,0.07);
+      --red-border: rgba(196,28,28,0.2);
+
+      --bg:         #FAFAF8;
+      --bg-white:   #FFFFFF;
+      --bg-section: #F4F1EE;
+
+      --text:       #1C1A18;
+      --text-sub:   #4A4845;
+      --muted:      #7A7672;
+
+      --border:     #E6E2DD;
+      --border-md:  #D4CFC9;
+
+      --shadow-sm:  0 2px 8px rgba(0,0,0,0.05);
+      --shadow-md:  0 8px 28px rgba(0,0,0,0.08);
+      --shadow-lg:  0 20px 60px rgba(0,0,0,0.10);
+
+      --font-d: 'Fraunces', serif;
+      --font-b: 'Outfit', sans-serif;
+      --r:  12px;
+      --rl: 18px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-b);
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(circle at 85% 8%, rgba(196,28,28,0.04) 0%, transparent 48%),
+        radial-gradient(circle at 8% 88%, rgba(196,28,28,0.03) 0%, transparent 42%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      background: rgba(250,250,248,0.94);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid transparent;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    nav.scrolled {
+      border-color: var(--border);
+      box-shadow: 0 1px 18px rgba(0,0,0,0.06);
+    }
+    .nav-inner {
+      max-width: 1180px; margin: 0 auto; padding: 0 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      height: 68px;
+    }
+    .nav-logo {
+      font-family: var(--font-d); font-size: 1.45rem; font-weight: 700;
+      color: var(--red); text-decoration: none; letter-spacing: -.02em;
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex; list-style: none; align-items: center; gap: .2rem;
+    }
+    .nav-links a {
+      display: block; color: var(--text-sub); text-decoration: none;
+      font-size: .875rem; font-weight: 500; padding: .5rem .85rem;
+      border-radius: 8px; transition: color .2s, background .2s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { color: var(--red); background: var(--red-dim); }
+    .nav-cta {
+      background: var(--red) !important; color: #fff !important;
+    }
+    .nav-cta:hover { background: var(--red-hover) !important; }
+
+    /* hamburger */
+    .hbtn {
+      display: none; flex-direction: column; justify-content: center;
+      gap: 5px; background: none; border: 1.5px solid var(--border-md);
+      border-radius: 9px; padding: 9px 10px; cursor: pointer;
+      transition: border-color .2s, background .2s; flex-shrink: 0;
+    }
+    .hbtn:hover { border-color: var(--red); background: var(--red-dim); }
+    .hbtn span {
+      display: block; width: 20px; height: 2px;
+      background: var(--text); border-radius: 2px; transition: .28s ease;
+    }
+    .hbtn.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .hbtn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hbtn.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 9rem 2rem 5rem; position: relative; z-index: 1;
+    }
+    .hero-inner {
+      max-width: 1180px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 420px;
+      gap: 5rem; align-items: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .55rem;
+      background: var(--red-dim); border: 1px solid var(--red-border);
+      border-radius: 100px; padding: .38rem .95rem;
+      font-size: .75rem; color: var(--red); font-weight: 600;
+      letter-spacing: .07em; text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      animation: fadeUp .7s ease both;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--red); animation: blink 2.2s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    .hero-name {
+      font-family: var(--font-d);
+      font-size: clamp(3.2rem,6vw,5.6rem);
+      font-weight: 800; line-height: 1.0; letter-spacing: -.03em;
+      color: var(--text); margin-bottom: .6rem;
+      animation: fadeUp .7s .08s ease both;
+    }
+    .hero-name em { color: var(--red); font-style: italic; font-weight: 400; }
+
+    .hero-role {
+      font-size: 1.05rem; color: var(--muted); font-weight: 400;
+      margin-bottom: 1.75rem; letter-spacing: .01em;
+      animation: fadeUp .7s .15s ease both;
+    }
+    .hero-desc {
+      font-size: 1rem; color: var(--text-sub); line-height: 1.75;
+      max-width: 460px; margin-bottom: 2.4rem;
+      animation: fadeUp .7s .22s ease both;
+    }
+    .hero-actions {
+      display: flex; gap: .9rem; flex-wrap: wrap;
+      animation: fadeUp .7s .3s ease both;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: .45rem;
+      padding: .75rem 1.5rem; border-radius: 10px;
+      font-size: .9rem; font-weight: 500; text-decoration: none;
+      cursor: pointer; transition: all .22s ease; border: none;
+      font-family: var(--font-b); white-space: nowrap;
+    }
+    .btn-primary { background: var(--red); color: #fff; }
+    .btn-primary:hover {
+      background: var(--red-hover); transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(196,28,28,.26);
+    }
+    .btn-outline {
+      background: transparent; color: var(--text-sub);
+      border: 1.5px solid var(--border-md);
+    }
+    .btn-outline:hover {
+      border-color: var(--red); color: var(--red); background: var(--red-dim);
+    }
+
+    /* profile card */
+    .hero-card {
+      background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: var(--rl); padding: 2.25rem;
+      box-shadow: var(--shadow-lg); position: relative; overflow: hidden;
+      animation: fadeUp .8s .1s ease both;
+    }
+    .hero-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), #ff6b6b, var(--red));
+    }
+    .hero-card-top {
+      display: flex; align-items: center; gap: 1.1rem; margin-bottom: 1.35rem;
+    }
+    .ring { position: relative; flex-shrink: 0; }
+    .ring::after {
+      content: ''; position: absolute; inset: -3px; border-radius: 50%;
+      background: conic-gradient(var(--red), #fca5a5, var(--red));
+      z-index: 0; animation: spin 9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .profile-img {
+      width: 80px; height: 80px; border-radius: 50%; object-fit: cover;
+      position: relative; z-index: 1;
+      border: 3px solid var(--bg-white); display: block;
+    }
+    .hc-name {
+      font-family: var(--font-d); font-size: 1.15rem;
+      font-weight: 700; color: var(--text); margin-bottom: .15rem;
+    }
+    .hc-title { font-size: .8rem; color: var(--red); font-weight: 500; }
+    .hc-bio {
+      font-size: .875rem; color: var(--text-sub); line-height: 1.65;
+      margin-bottom: 1.35rem; border-top: 1px solid var(--border);
+      padding-top: 1.2rem;
+    }
+    .chip-row { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: 1.35rem; }
+    .chip {
+      background: var(--bg-section); border: 1px solid var(--border);
+      padding: .28rem .7rem; border-radius: 100px;
+      font-size: .75rem; color: var(--muted); font-weight: 500;
+    }
+    .chip.hot {
+      background: var(--red-dim); border-color: var(--red-border); color: var(--red);
+    }
+    .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    .stat-box {
+      background: var(--bg-section); border: 1px solid var(--border);
+      border-radius: var(--r); padding: .9rem 1rem; text-align: center;
+    }
+    .stat-num {
+      font-family: var(--font-d); font-size: 1.6rem; font-weight: 800;
+      color: var(--red); display: block; line-height: 1;
+    }
+    .stat-lbl {
+      font-size: .7rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .06em; margin-top: .3rem;
+    }
+
+    /* ── SECTIONS ── */
+    section { position: relative; z-index: 1; padding: 5.5rem 2rem; }
+    .si { max-width: 1180px; margin: 0 auto; }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .72rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--red); margin-bottom: .75rem;
+    }
+    .eyebrow::before {
+      content: ''; width: 20px; height: 2px;
+      background: var(--red); border-radius: 2px;
+    }
+    .stitle {
+      font-family: var(--font-d);
+      font-size: clamp(2rem,3.5vw,2.75rem);
+      font-weight: 800; letter-spacing: -.025em;
+      line-height: 1.1; color: var(--text); margin-bottom: .75rem;
+    }
+    .ssub {
+      font-size: .975rem; color: var(--muted);
+      max-width: 500px; line-height: 1.7; margin-bottom: 3rem;
+    }
+    hr.div {
+      border: none; border-top: 1px solid var(--border);
+      max-width: 1180px; margin: 0 auto;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--bg-white); }
+    .pfeat { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .pgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+
+    .pcard {
+      background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: var(--rl); overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform .28s, box-shadow .28s, border-color .28s;
+      position: relative;
+    }
+    .pcard:hover {
+      transform: translateY(-6px); box-shadow: var(--shadow-lg);
+      border-color: var(--red-border);
+    }
+    .pcard::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: var(--red);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .3s; z-index: 2;
+    }
+    .pcard:hover::before { transform: scaleX(1); }
+
+    .pimg { overflow: hidden; background: var(--bg-section); position: relative; }
+    .pimg img {
+      width: 100%; height: 210px; object-fit: cover;
+      display: block; transition: transform .45s;
+    }
+    .pcard.feat .pimg img { height: 250px; }
+    .pcard:hover .pimg img { transform: scale(1.05); }
+
+    .pbody { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .ptags { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .7rem; }
+    .ptag {
+      font-size: .67rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .07em; color: var(--red);
+      background: var(--red-dim); border: 1px solid var(--red-border);
+      border-radius: 100px; padding: .22rem .6rem;
+    }
+    .ptitle {
+      font-family: var(--font-d); font-size: 1.1rem; font-weight: 700;
+      color: var(--text); margin-bottom: .55rem;
+    }
+    .pdesc {
+      font-size: .875rem; color: var(--text-sub); line-height: 1.65;
+      flex: 1; margin-bottom: 1.2rem;
+    }
+    .plink {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .85rem; font-weight: 600; color: var(--red);
+      text-decoration: none; transition: gap .2s, color .2s;
+    }
+    .plink:hover { color: var(--red-hover); gap: .7rem; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--bg-section); }
+    .skl {
+      display: grid; grid-template-columns: 280px 1fr;
+      gap: 5rem; align-items: start;
+    }
+    .sgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+    .scard {
+      background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.4rem;
+      transition: border-color .25s, box-shadow .25s, transform .25s;
+      position: relative; overflow: hidden;
+    }
+    .scard::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px; background: var(--red);
+      transform: scaleX(0); transform-origin: left; transition: transform .3s;
+    }
+    .scard:hover::after { transform: scaleX(1); }
+    .scard:hover { border-color: var(--red-border); box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .sbadge { font-size: .67rem; font-weight: 600; text-transform: uppercase; letter-spacing: .09em; color: var(--red); margin-bottom: .45rem; }
+    .sname { font-family: var(--font-d); font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: .3rem; }
+    .sdesc { font-size: .78rem; color: var(--muted); line-height: 1.55; }
+    .strack { margin-top: 1rem; height: 4px; background: var(--bg-section); border-radius: 4px; overflow: hidden; }
+    .sbar { height: 100%; border-radius: 4px; background: linear-gradient(90deg,var(--red),#ff7070); }
+
+    /* ── BOTTOM ── */
+    #bottom { background: var(--bg-white); }
+    .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; }
+    .icard {
+      background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: var(--rl); padding: 2.25rem;
+      position: relative; overflow: hidden;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    .icard:hover { border-color: var(--red-border); box-shadow: var(--shadow-md); }
+    .icard::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: linear-gradient(90deg, var(--red), #ff7070, var(--red));
+    }
+    .iico {
+      width: 42px; height: 42px; background: var(--red-dim);
+      border: 1px solid var(--red-border); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--red); margin-bottom: 1.1rem;
+    }
+    .icard h3 { font-family: var(--font-d); font-size: 1.3rem; font-weight: 700; color: var(--text); margin-bottom: .5rem; }
+    .icard p { font-size: .9rem; color: var(--muted); line-height: 1.65; margin-bottom: .4rem; }
+    .icard a { color: var(--red); text-decoration: none; transition: color .2s; }
+    .icard a:hover { color: var(--red-hover); }
+
+    .clinks { display: flex; flex-direction: column; gap: .75rem; margin-top: 1.4rem; }
+    .crow {
+      display: flex; align-items: center; gap: .75rem;
+      padding: .9rem 1rem; background: var(--bg-section);
+      border: 1px solid var(--border); border-radius: var(--r);
+      text-decoration: none; color: var(--text-sub);
+      font-size: .875rem; transition: all .22s;
+    }
+    .crow:hover {
+      border-color: var(--red-border); background: var(--red-dim);
+      color: var(--red); transform: translateX(4px);
+    }
+    .cico {
+      width: 30px; height: 30px; border-radius: 8px;
+      background: var(--red-dim); border: 1px solid var(--red-border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: var(--red);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--text); color: rgba(255,255,255,.4);
+      text-align: center; padding: 1.75rem 2rem;
+      font-size: .82rem; position: relative; z-index: 1;
+    }
+    footer strong { color: #ff8080; font-weight: 500; }
+
+    /* ── ANIM ── */
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(22px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+    .reveal { opacity:0; transform:translateY(24px); transition: opacity .55s, transform .55s; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; max-width: 640px; }
+      .hero-card { max-width: 440px; }
+      .pgrid { grid-template-columns: 1fr 1fr; }
+      .skl { grid-template-columns: 1fr; gap: 2.5rem; }
+      .sgrid { grid-template-columns: repeat(3,1fr); }
+    }
+
+    @media (max-width: 768px) {
+      /* ── MOBILE NAV ── */
+      .nav-links {
+        display: none;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: var(--bg-white);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        /* generous padding so items have room to breathe */
+        padding: 1rem 1.25rem 1.5rem;
+        gap: 0;
+        box-shadow: 0 8px 24px rgba(0,0,0,.07);
+      }
+      .nav-links.open { display: flex; }
+      .hbtn { display: flex; }
+
+      .nav-links li { width: 100%; }
+
+      /* each link gets a tall, full-width tap target */
+      .nav-links a {
+        display: block; width: 100%;
+        padding: 1rem 1rem; /* tall tap target */
+        font-size: .95rem;
+        border-radius: 9px;
+        color: var(--text-sub);
+        border: 1px solid transparent;
+        /* separator line */
+        border-bottom: 1px solid var(--border);
+        border-radius: 0;
+      }
+      /* Remove border from last item before the CTA */
+      .nav-links li:nth-last-child(2) a { border-bottom: none; }
+
+      .nav-links a:hover {
+        background: var(--red-dim); color: var(--red);
+        border-radius: 9px; border-color: var(--red-border);
+      }
+
+      /* CTA button stands apart at the bottom */
+      .nav-cta {
+        background: var(--red) !important;
+        color: #fff !important;
+        border-color: transparent !important;
+        border-radius: 9px !important;
+        text-align: center;
+        margin-top: .75rem;
+      }
+      .nav-cta:hover { background: var(--red-hover) !important; border-color: transparent !important; }
+
+      /* layouts */
+      .pfeat { grid-template-columns: 1fr; }
+      .pgrid { grid-template-columns: 1fr; }
+      .twocol { grid-template-columns: 1fr; }
+      .sgrid { grid-template-columns: 1fr 1fr; }
+      section { padding: 4rem 1.25rem; }
+    }
+
+    @media (max-width: 480px) {
+      .sgrid { grid-template-columns: 1fr; }
+      .hero-card, .icard { padding: 1.75rem; }
+    }
+  </style>
 </head>
+<body>
 
-<body class = "body">
-      <nav class="navbar">
-        <ul >
-          <li><a href="/index.html">Home</a></li>
-          <li><a href="#latest-projects">Projects</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#resume">Resume</a></li>
-          <li><a href="#contact">Contact</a>
-        </ul>
-      </nav>
-  <header >
-  
-    <section id="bio" class="bio">
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#home" class="nav-logo">ED.</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#resume">Resume</a></li>
+        <li><a href="#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hbtn" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
 
-      <div class="intro_banner">
-        <h1 class="intro_banner--title">Ernesto Duany's Web Development Portfolio</h1>
-          <div class="intro_banner--style">
-            <img class ="intro_banner--pfp" src="/pfp.jpeg" alt="Ernesto Duany's profile picture photo">
-            <p class="intro_bio">I’m a 23-year-old aspiring programmer with a strong interest in web development and software engineering. 
-              I’m currently learning HTML, CSS, JavaScript, and Python, and enjoy exploring how these technologies work together to bring ideas to life. 
-              I’m passionate about building clean, functional projects and continuously improving my skills through hands-on experience. 
-              Whether it’s designing responsive websites or solving logical problems, I’m eager to grow as a developer and contribute to meaningful, innovative projects in the tech world.</p>
+  <!-- HERO -->
+  <section id="home">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">Available for new projects</div>
+        <h1 class="hero-name">Ernesto<br><em>Duany</em></h1>
+        <p class="hero-role">Front-End Developer &amp; Founder of OpSight</p>
+        <p class="hero-desc">I build clean, modern web experiences — from client-facing platforms to interactive developer tools. Focused on JavaScript, React, and shipping products people actually enjoy using.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">
+            View My Work
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#contact" class="btn btn-outline">Get in Touch</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-top">
+          <div class="ring">
+            <img class="profile-img" src="/" alt="Ernesto Duany">
+          </div>
+          <div>
+            <div class="hc-name">Ernesto Duany</div>
+            <div class="hc-title">Front-End Dev · OpSight Founder</div>
           </div>
         </div>
-    </section>
-
-
-  </header>
-  <main id="main">
-    
-    <section id="latest-projects" class="latest-projects">
-
-      <div class="latest-projects--title">
-        <h2>Latest Projects</h2>
-      </div>
-
-
-        <div class="latest-projects--card1">
-          <h3>Flags Website (coming soon):</h3>
-          <div class = "latest-projects--box1">
-            <img class = "latest-projects--img1" src="/flags.png" alt="image of multiple flags">
-            <p>This project is an interactive website designed to help users learn and identify flags from countries around the world. 
-              The platform features a clean and engaging interface where users can explore flags by region, test their knowledge with quizzes, and discover 
-              facts such as country names, capitals, and geographic details. 
-              It caters to learners of all ages and backgrounds, including students, travelers, and educators. The website is responsive, 
-              making it accessible on both desktop and mobile devices. With an educational focus and user-friendly experience, 
-              this tool encourages curiosity and global awareness in a fun and visually rich learning environment.</p>
+        <p class="hc-bio">23-year-old developer with a strong foundation in HTML, CSS, and JavaScript — deepening expertise in React and building impactful products for real users.</p>
+        <div class="chip-row">
+          <span class="chip hot">HTML5</span>
+          <span class="chip hot">CSS</span>
+          <span class="chip hot">JavaScript</span>
+          <span class="chip">React</span>
+          <span class="chip">UI / UX</span>
         </div>
-          <button class="latest-projects--button">View Project</button>
+        <div class="stat-row">
+          <div class="stat-box">
+            <span class="stat-num">5+</span>
+            <div class="stat-lbl">Projects Built</div>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">2+</span>
+            <div class="stat-lbl">Years Learning</div>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
 
+  <hr class="div">
 
-      <div class="latest-projects--card2">
-        <h3>Weather App (coming soon):</h3>
-        <div class = "latest-projects--box2">
-            <img class = "latest-projects--img2" src="/weather.png" alt="Weather cloud image">
-            <p>This project is a responsive weather application that provides users with accurate, real-time forecasts and location-based climate updates. 
-              The design features a minimalist interface with bold weather icons, making it simple and intuitive to use. Users can view daily and hourly forecasts, 
-              including temperature, wind, humidity, and precipitation levels. 
-              The app supports automatic geolocation as well as manual city searches, enhancing its versatility. Designed for both desktop and mobile platforms, the site ensures fast load times
-               and easy access to essential weather data. Ideal for daily planning, this tool delivers reliable meteorological insights through a clean and modern experience.</p>
-        </div>  
-            <button class="latest-projects--button">View Project</button>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="si">
+      <div class="eyebrow">Selected Work</div>
+      <h2 class="stitle">Projects</h2>
+      <p class="ssub">A collection of what I've built — from client platforms to tools for developers and students.</p>
+      <div id="pfeat" class="pfeat"></div>
+      <div id="pgrid" class="pgrid"></div>
+    </div>
+  </section>
+
+  <hr class="div">
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="si">
+      <div class="skl">
+        <div>
+          <div class="eyebrow">Capabilities</div>
+          <h2 class="stitle">Skills &amp;<br>Expertise</h2>
+          <p style="font-size:.95rem;color:var(--muted);line-height:1.7;margin-top:.75rem;">Building on a solid frontend foundation and expanding into modern frameworks and tooling.</p>
+        </div>
+        <div class="sgrid">
+          <div class="scard reveal"><div class="sbadge">Proficient</div><div class="sname">HTML5</div><div class="sdesc">Semantic markup, accessibility, and modern structures.</div><div class="strack"><div class="sbar" style="width:90%"></div></div></div>
+          <div class="scard reveal"><div class="sbadge">Proficient</div><div class="sname">CSS</div><div class="sdesc">Responsive layouts, animations, Flexbox &amp; Grid.</div><div class="strack"><div class="sbar" style="width:90%"></div></div></div>
+          <div class="scard reveal"><div class="sbadge">Moderate</div><div class="sname">JavaScript</div><div class="sdesc">DOM manipulation, async patterns, event architecture.</div><div class="strack"><div class="sbar" style="width:65%"></div></div></div>
+          <div class="scard reveal"><div class="sbadge">Learning</div><div class="sname">React</div><div class="sdesc">Components, hooks, state management, SPA patterns.</div><div class="strack"><div class="sbar" style="width:25%"></div></div></div>
+          <div class="scard reveal"><div class="sbadge">Practicing</div><div class="sname">UI / UX</div><div class="sdesc">Wireframing, design systems, accessible experiences.</div><div class="strack"><div class="sbar" style="width:70%"></div></div></div>
+          <div class="scard reveal"><div class="sbadge">Familiar</div><div class="sname">Git</div><div class="sdesc">Version control, branching, collaborative workflows.</div><div class="strack"><div class="sbar" style="width: 30%;"></div></div></div>
+        </div>
       </div>
+    </div>
+  </section>
 
+  <hr class="div">
 
-      <div class="latest-projects--card3">
-        <h3>Calculator (coming soon):</h3>
-        <div class = "latest-projects--box3">
-            <img class = "latest-projects--img3" src="/calculator.png" alt="Image of a calculator">
-            <p>This project is a basic yet efficient calculator web application built for simple, everyday arithmetic operations. It includes essential functions like addition, 
-              subtraction, multiplication, and division, all within a sleek and intuitive layout. 
-              The interface is user-friendly and responsive, making it usable on desktops, tablets, and smartphones without any performance issues. The calculator is 
-              lightweight and free of unnecessary features, focusing on functionality and speed.
-              It’s perfect for users who need a quick, 
-              accessible tool for fast calculations. Developed with clean code and clear design principles, the project demonstrates practical implementation of front-end development fundamentals in a useful format.</p>
+  <!-- RESUME + CONTACT -->
+  <section id="bottom">
+    <div class="si">
+      <div class="twocol">
+
+        <div class="icard reveal" id="resume">
+          <div class="iico">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <h3>Resume</h3>
+          <p>Want the full picture? Download my resume to see my skills, projects, and background in detail.</p>
+          <br>
+          <a href="/misc files/Resume March 2026.pdf" target="_blank" class="btn btn-primary" style="font-size:.875rem;color: #ffffff;">
+            Download Resume
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </a>
+        </div>
+
+        <div class="icard reveal" id="contact">
+          <div class="iico">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <h3>Contact Me</h3>
+          <p>Have a project in mind? I'd love to connect — reach out through any channel below.</p>
+          <div class="clinks">
+            <a href="mailto:alejandrodc1732@gmail.com" class="crow">
+              <div class="cico"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+              alejandrodc1732@gmail.com
+            </a>
+            <a href="https://www.linkedin.com/in/ernesto-duanyyy" target="_blank" class="crow">
+              <div class="cico"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4V9h4v2a6 6 0 0 1 6-5z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+              linkedin.com/in/ernesto-duanyyy
+            </a>
+          </div>
+        </div>
+
       </div>
-            <button class="latest-projects--button">View Project</button>
-      </div>
+    </div>
+  </section>
 
-
-    </section>
-
-    <section id="skills">
-      <div class="skills">  
-        <h2>Skills</h2>
-        <p><strong>Proficiency</strong>: CSS, HTML5 </p>
-        <p><strong>Moderate</strong>: JavaScript</p>
-      </div>
-    </section>
-
-    <section id="resume" class="resume">
-      <h2>Resume</h2>
-      <p>Download my resume <a href="/Resume Sep 7th.pdf" target="_blank">here</a>.</p>
-
-    <section id="contact" class="contact">
-      <h2>Contact Me</h2>
-      <p>If you want to contact me, you can do so by sending me an email at <a href="mailto:alejandrodc1732@gmail.com"> alejandrodc1732@gmail.com </a> </p>
-      <p>or by connecting with me on <a href="https://www.linkedin.com/in/ernesto-duanyyy/" target="_blank">LinkedIn</a>.</p>
-      </section>
-    </main>
-
-  <footer class="footer">
-    <p> © 2025 Ernesto Duany</p>
-    <p>All rights reserved.</p>
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 <strong>Ernesto Duany</strong>. All rights reserved.</p>
   </footer>
 
-  <script src="/script.js"></script>
+  <script>
+    // Scroll effect
+    const nb = document.getElementById('navbar');
+    window.addEventListener('scroll', () => nb.classList.toggle('scrolled', window.scrollY > 30), { passive: true });
+
+    // Hamburger
+    const hb = document.getElementById('hamburger');
+    const nl = document.getElementById('nav-links');
+    hb.addEventListener('click', () => { nl.classList.toggle('open'); hb.classList.toggle('open'); });
+    nl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nl.classList.remove('open'); hb.classList.remove('open'); }));
+
+    // Smooth scroll (in-page only)
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+
+    // Reveal on scroll
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach((en, i) => { if (en.isIntersecting) setTimeout(() => en.target.classList.add('visible'), i * 75); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+    // Load projects from JSON
+    async function loadProjects() {
+      const fc = document.getElementById('pfeat');
+      const gc = document.getElementById('pgrid');
+      try {
+        const r = await fetch('/projects.json');
+        if (!r.ok) throw 0;
+        const all = await r.json();
+        fc.innerHTML = all.filter(p => p.featured).map(p => card(p, true)).join('');
+        gc.innerHTML = all.filter(p => !p.featured).map(p => card(p, false)).join('');
+      } catch { fallback(fc, gc); }
+      document.querySelectorAll('.pcard').forEach(el => { el.classList.add('reveal'); ro.observe(el); });
+    }
+
+    function card(p, feat) {
+      const ext = p.external ? ' target="_blank" rel="noopener"' : '';
+      return `<div class="pcard${feat?' feat':''}">
+        <div class="pimg"><img src="${p.image}" alt="${p.title}" loading="lazy" style="object-fit:${p.imageStyle||'cover'}"></div>
+        <div class="pbody">
+          <div class="ptags">${p.tags.map(t=>`<span class="ptag">${t}</span>`).join('')}</div>
+          <h3 class="ptitle">${p.title}</h3>
+          <p class="pdesc">${p.description}</p>
+          <a href="${p.link}" class="plink"${ext}>View Project <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div></div>`;
+    }
+
+    function fallback(fc, gc) {
+      const f=[
+        {id:'peercode',title:'PeerCode()',description:'A collaborative platform for CS students to post questions, receive peer feedback, and interact with an AI agent that provides contextual hints.',image:'/PeerCode()/peer.png',imageStyle:'contain',link:'/PeerCode()/PeerCode.html',tags:['AI','Education','Collaboration'],featured:true},
+        {id:'opsight',title:'OpSight',description:'A modern web application delivering operational clarity and actionable insights — clean architecture with real-time data visualization.',image:'/dist/img/OpSight.png',imageStyle:'cover',link:'/dist/opsight.html',tags:['Web App','Analytics','Dashboard'],featured:true}
+      ];
+      const g=[
+        {id:'shopping-cart',title:'Shopping Cart',description:'Fully functional e-commerce cart in vanilla JS — dynamic products, real-time cart management, and a payment system.',image:'/dist/img/shopping.png',imageStyle:'cover',link:'/shopping cart/src/shopping cart website.html',tags:['JavaScript','E-Commerce','DOM']},
+        {id:'portfolio-dom',title:'Portfolio via DOM',description:'Responsive portfolio with dynamic project display, real-time form validation, and async JSON data loading.',image:'/dist/img/portfolio.png',imageStyle:'cover',link:'/DOM website/DOM website.html',tags:['JavaScript','DOM','Responsive']},
+        {id:'restaurant',title:'Restaurant Website',description:'A clean foundation for a full restaurant ordering site — built to grow with DOM-powered checkout.',image:'/dist/img/restaurant website.png',imageStyle:'cover',link:'http://dash.ga.co/kanashi/build-your-own-business-website',tags:['HTML','CSS','Foundation'],external:true}
+      ];
+      fc.innerHTML = f.map(p=>card(p,true)).join('');
+      gc.innerHTML = g.map(p=>card(p,false)).join('');
+    }
+
+    loadProjects();
+  </script>
 </body>
-
 </html>
-
-
